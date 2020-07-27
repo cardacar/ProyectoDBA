@@ -1,15 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.Create.CreateFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:gravity="center"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical"
+        android:padding="25dp"
+        android:layout_margin="25dp">
 
+        <EditText
+            android:id="@+id/ETnombre"
+            android:hint= "Ingrese el nombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            />
+        <EditText
+            android:id="@+id/ETprecio"
+            android:hint="Ingrese la el precio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"/>
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:padding="25dp"
+            android:layout_marginTop="30dp">
+            <TextView
+                android:gravity="center"
+                android:text="Ingrese la categoria"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <RadioButton
+                android:id="@+id/rbcat1"
+                android:text="Categoria 1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <RadioButton
+                android:id="@+id/rbcat2"
+                android:text="Categoria 2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <RadioButton
+                android:id="@+id/rbcat3"
+                android:text="Categoria 3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <RadioButton
+                android:id="@+id/rbcat4"
+                android:text="Categoria 4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RadioGroup>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginTop="150dp">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Cancelar"
+                android:layout_margin="20dp"/>
+
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:text="Aceptar"
+                android:layout_margin="20dp"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
 </FrameLayout>
