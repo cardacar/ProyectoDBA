@@ -16,5 +16,25 @@
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_slideshow" />
+        <item
+            android:id="@+id/createFragment"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Crear" />
+        <item
+            android:id="@+id/readFragment"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Leer" />
+        <item
+            android:id="@+id/updateFragment"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Actualizar" />
+        <item
+            android:id="@+id/deleteFragment"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Eliminar" />
+        <item
+            android:id="@+id/listFragment"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Listar" />
     </group>
 </menu>

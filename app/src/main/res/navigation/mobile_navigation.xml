@@ -22,4 +22,29 @@
         android:name="com.personal.proyectodba.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+    <fragment
+        android:id="@+id/listFragment"
+        android:name="com.personal.proyectodba.ui.List.ListFragment"
+        android:label="fragment_list"
+        tools:layout="@layout/fragment_list" />
+    <fragment
+        android:id="@+id/createFragment"
+        android:name="com.personal.proyectodba.ui.Create.CreateFragment"
+        android:label="fragment_create"
+        tools:layout="@layout/fragment_create" />
+    <fragment
+        android:id="@+id/readFragment"
+        android:name="com.personal.proyectodba.ui.Read.ReadFragment"
+        android:label="fragment_read"
+        tools:layout="@layout/fragment_read" />
+    <fragment
+        android:id="@+id/updateFragment"
+        android:name="com.personal.proyectodba.ui.Update.UpdateFragment"
+        android:label="fragment_update"
+        tools:layout="@layout/fragment_update" />
+    <fragment
+        android:id="@+id/deleteFragment"
+        android:name="com.personal.proyectodba.ui.Delete.DeleteFragment"
+        android:label="fragment_delete"
+        tools:layout="@layout/fragment_delete" />
 </navigation>
