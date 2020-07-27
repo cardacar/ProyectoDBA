@@ -7,6 +7,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.Toast;
 
 import com.personal.proyectodba.R;
 
@@ -16,6 +20,10 @@ import com.personal.proyectodba.R;
  * create an instance of this fragment.
  */
 public class CreateFragment extends Fragment {
+
+    EditText etNombre,etPrecio;
+    RadioButton rbCat1,rbCat2,rbCat3,rbCat4;
+    Button btnCancel,btnAcept;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,6 +69,31 @@ public class CreateFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_create, container, false);
+        View view = inflater.inflate(R.layout.fragment_create, container, false);
+        //Busco los id de los editText
+        etNombre = (EditText)view.findViewById(R.id.ETnombre);
+        etPrecio = (EditText)view.findViewById(R.id.ETprecio);
+
+        //Id de los radioButton
+        rbCat1 = (RadioButton)view.findViewById(R.id.rbcat1);
+        rbCat2 = (RadioButton)view.findViewById(R.id.rbcat2);
+        rbCat3 = (RadioButton)view.findViewById(R.id.rbcat3);
+        rbCat4 = (RadioButton)view.findViewById(R.id.rbcat4);
+
+        //Id de los botones
+        btnAcept = (Button)view.findViewById(R.id.btnAcept);
+        btnCancel = (Button)view.findViewById(R.id.btnCancel);
+
+        btnAcept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(), "hola mundo", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+        return view; /*inflater.inflate(R.layout.fragment_create, container, false);*/
+
+
+        //
     }
 }
