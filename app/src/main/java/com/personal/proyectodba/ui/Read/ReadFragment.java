@@ -2,12 +2,27 @@ package com.personal.proyectodba.ui.Read;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
+import android.widget.TextView;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.personal.proyectodba.model.producto;
+
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.personal.proyectodba.R;
 
 /**
@@ -16,6 +31,10 @@ import com.personal.proyectodba.R;
  * create an instance of this fragment.
  */
 public class ReadFragment extends Fragment {
+
+
+    private RecyclerView myReadRecyclerView;
+    private DatabaseReference productoRef,userRef;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,6 +80,16 @@ public class ReadFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_read, container, false);
+        //Inflo mi vista
+        View readView = inflater.inflate(R.layout.fragment_read, container, false);
+        //Obtengo el id del recyclerview
+
+        //Obtengo la tabla de producto de firebase
+
+
+
+        return readView;
     }
+
+
 }

@@ -5,24 +5,9 @@
     android:layout_height="match_parent"
     tools:context=".ui.Read.ReadFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerRead"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="25dp"
-        android:text="Lista de productos"
-        android:gravity="center"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="50dp">
-
-        <ListView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"/>
-
-    </LinearLayout>
-
+        android:layout_height="match_parent">
+    </androidx.recyclerview.widget.RecyclerView>
 </FrameLayout>

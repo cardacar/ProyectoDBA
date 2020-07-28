@@ -27,9 +27,10 @@ import java.util.UUID;
  */
 public class CreateFragment extends Fragment {
 
-    EditText etNombre,etPrecio;
-    RadioButton rbCat1,rbCat2,rbCat3,rbCat4;
-    Button btnCancel,btnAcept;
+
+    private EditText etNombre,etPrecio;
+    private RadioButton rbCat1,rbCat2,rbCat3,rbCat4;
+    private Button btnCancel,btnAcept;
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
@@ -129,29 +130,6 @@ public class CreateFragment extends Fragment {
                 clean();
             }
         });
-
-            /*
-            //String de como deberia ser el correo
-                String compruebaCorreo = "(?:[^<>()\\[\\].,;:\\s@\"]+(?:\\.[^<>()\\[\\].,;:\\s@\"]+)*|\"[^\\n\"]+\")@(?:[^<>()\\[\\].,;:\\s@\"]+\\.)+[^<>()\\[\\]\\.,;:\\s@\"]{2,63}";
-                //Comprueba si los campos estan vacios
-                if(!correo.isEmpty() && !contraseña.isEmpty()){
-                    //Comprueba de que sea de la forma del correo
-                    if (!correo.matches(compruebaCorreo))
-                    {
-                        Toast.makeText(Login.this, "Por favor, introduce bien su email", Toast.LENGTH_LONG).show();
-                    }else{
-                        loginUser();
-                    }
-
-                }else{
-                    Toast.makeText(Login.this, "complete los campos", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-            */
-
-
-
 
         return view; /*inflater.inflate(R.layout.fragment_create, container, false);*/
     }
