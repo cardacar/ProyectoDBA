@@ -12,9 +12,13 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.personal.proyectodba.MainActivity;
 import com.personal.proyectodba.R;
 import com.personal.proyectodba.model.producto;
 
@@ -32,8 +36,12 @@ public class CreateFragment extends Fragment {
     private RadioButton rbCat1,rbCat2,rbCat3,rbCat4;
     private Button btnCancel,btnAcept;
 
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
+    //private FirebaseUser user;
+    //private FirebaseAuth mAuth;
+    //private String currentUserID;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -93,6 +101,9 @@ public class CreateFragment extends Fragment {
         //Id de los botones
         btnAcept = (Button)view.findViewById(R.id.btnAcept);
         btnCancel = (Button)view.findViewById(R.id.btnCancel);
+        //mAuth = FirebaseAuth.getInstance();
+        //currentUserID = mAuth.getCurrentUser().getUid();
+        //databaseReference = firebaseDatabase.getReference().child("Producto").child(currentUserID);
         inicializarFirebase();
 
 
@@ -104,7 +115,9 @@ public class CreateFragment extends Fragment {
                 Toast.makeText(getActivity(), "hola mundo", Toast.LENGTH_SHORT).show();
                 String nombre = etNombre.getText().toString();
                 String categoria = chekoutRB();
-;               String price = etPrecio.getText().toString();
+                String price = etPrecio.getText().toString();
+
+
 
                 if (!nombre.isEmpty() && !price.isEmpty() &&!categoria.isEmpty()){
 
@@ -114,7 +127,8 @@ public class CreateFragment extends Fragment {
                     p.setPrecio(price);
                     p.setCategoria(categoria);
                     databaseReference.child("Producto").child(p.getCodigo()).setValue(p);
-                    Toast.makeText(getActivity(), "categoria: "+categoria, Toast.LENGTH_SHORT).show();
+
+                    Toast.makeText(getActivity(), "Se ingresaron los datos a la base de datos ", Toast.LENGTH_SHORT).show();
                     clean();
 
                 }else{
@@ -164,14 +178,12 @@ public class CreateFragment extends Fragment {
         rbCat4.setChecked(false);
     }
 
-    private String cod(){
-
-        return "";
-    }
 
     private void inicializarFirebase(){
         FirebaseApp.initializeApp(getActivity());
+        FirebaseApp.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
+
     }
 }

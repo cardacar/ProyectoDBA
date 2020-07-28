@@ -38,11 +38,10 @@
 
     </LinearLayout>
 
-    <RadioButton
-        android:id="@+id/radioButton"
+
+    <CheckBox
         android:layout_width="93dp"
         android:layout_height="141dp"
-        android:layout_marginStart="-5dp"
-        android:layout_toEndOf="@+id/linearLay"
-         />
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="276dp"/>
 </RelativeLayout>

@@ -10,25 +10,46 @@
         android:id="@+id/listFragment"
         android:name="com.personal.proyectodba.ui.List.ListFragment"
         android:label="fragment_list"
-        tools:layout="@layout/fragment_list" />
+        tools:layout="@layout/fragment_list" >
+        <action
+            android:id="@+id/action_listFragment_to_deleteFragment"
+            app:destination="@id/deleteFragment" />
+    </fragment>
     <fragment
         android:id="@+id/createFragment"
         android:name="com.personal.proyectodba.ui.Create.CreateFragment"
         android:label="fragment_create"
-        tools:layout="@layout/fragment_create" />
+        tools:layout="@layout/fragment_create" >
+        <action
+            android:id="@+id/action_createFragment_self"
+            app:destination="@id/createFragment"
+            app:launchSingleTop="false" />
+    </fragment>
     <fragment
         android:id="@+id/readFragment"
         android:name="com.personal.proyectodba.ui.Read.ReadFragment"
         android:label="fragment_read"
-        tools:layout="@layout/fragment_read" />
+        tools:layout="@layout/fragment_read" >
+        <action
+            android:id="@+id/action_readFragment_to_createFragment"
+            app:destination="@id/createFragment" />
+    </fragment>
     <fragment
         android:id="@+id/updateFragment"
         android:name="com.personal.proyectodba.ui.Update.UpdateFragment"
         android:label="fragment_update"
-        tools:layout="@layout/fragment_update" />
+        tools:layout="@layout/fragment_update" >
+        <action
+            android:id="@+id/action_updateFragment_to_readFragment"
+            app:destination="@id/readFragment" />
+    </fragment>
     <fragment
         android:id="@+id/deleteFragment"
         android:name="com.personal.proyectodba.ui.Delete.DeleteFragment"
         android:label="fragment_delete"
-        tools:layout="@layout/fragment_delete" />
+        tools:layout="@layout/fragment_delete" >
+        <action
+            android:id="@+id/action_deleteFragment_to_updateFragment"
+            app:destination="@id/updateFragment" />
+    </fragment>
 </navigation>

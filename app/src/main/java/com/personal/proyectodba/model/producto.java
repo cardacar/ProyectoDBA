@@ -53,5 +53,4 @@ public class producto {
     public String toString() {
         return nombre;
     }
-
 }

@@ -15,15 +15,20 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.personal.proyectodba.adapter.readAdapter;
 import com.personal.proyectodba.model.producto;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.personal.proyectodba.R;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,7 +39,12 @@ public class ReadFragment extends Fragment {
 
 
     private RecyclerView myReadRecyclerView;
-    private DatabaseReference productoRef,userRef;
+    private readAdapter rAdapter;
+    private ArrayList<producto> lProducto = new ArrayList<>();
+
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference productoRef;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -74,6 +84,7 @@ public class ReadFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
@@ -83,12 +94,48 @@ public class ReadFragment extends Fragment {
         //Inflo mi vista
         View readView = inflater.inflate(R.layout.fragment_read, container, false);
         //Obtengo el id del recyclerview
+        inicializarFirebase();
+        myReadRecyclerView = (RecyclerView)readView.findViewById(R.id.recyclerRead);
+        myReadRecyclerView.setLayoutManager(new LinearLayoutManager(container.getContext()));
+        getProductoFromFirebase();
 
-        //Obtengo la tabla de producto de firebase
+
 
 
 
         return readView;
+    }
+
+    private void getProductoFromFirebase(){
+        productoRef.child("Producto").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    for (DataSnapshot ds: snapshot.getChildren()){
+                        String codigo = ds.child("codigo").getValue().toString();
+                        String nombre = ds.child("nombre").getValue().toString();
+                        String precio = ds.child("precio").getValue().toString();
+                        String categoria = ds.child("categoria").getValue().toString();
+
+                        lProducto.add(new producto(codigo,nombre,precio,categoria));
+                    }
+                    rAdapter = new readAdapter(lProducto,R.layout.vistaproducto);
+                    myReadRecyclerView.setAdapter(rAdapter);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
+    private void inicializarFirebase(){
+        FirebaseApp.initializeApp(getActivity());
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        productoRef = firebaseDatabase.getReference();
     }
 
 
