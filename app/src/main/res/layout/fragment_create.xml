@@ -26,7 +26,8 @@
             android:hint="Ingrese la el precio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"/>
+            android:layout_marginTop="25dp"
+            android:inputType="numberDecimal"/>
 
         <RadioGroup
             android:layout_width="match_parent"

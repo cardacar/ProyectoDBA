@@ -12,7 +12,13 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.personal.proyectodba.R;
+import com.personal.proyectodba.model.producto;
+
+import java.util.UUID;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,6 +30,9 @@ public class CreateFragment extends Fragment {
     EditText etNombre,etPrecio;
     RadioButton rbCat1,rbCat2,rbCat3,rbCat4;
     Button btnCancel,btnAcept;
+
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -83,17 +92,108 @@ public class CreateFragment extends Fragment {
         //Id de los botones
         btnAcept = (Button)view.findViewById(R.id.btnAcept);
         btnCancel = (Button)view.findViewById(R.id.btnCancel);
+        inicializarFirebase();
+
+
+
 
         btnAcept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getActivity(), "hola mundo", Toast.LENGTH_SHORT).show();
+                String nombre = etNombre.getText().toString();
+                String categoria = chekoutRB();
+;               String price = etPrecio.getText().toString();
+
+                if (!nombre.isEmpty() && !price.isEmpty() &&!categoria.isEmpty()){
+
+                    producto p = new producto();
+                    p.setCodigo(UUID.randomUUID().toString());
+                    p.setNombre(nombre);
+                    p.setPrecio(price);
+                    p.setCategoria(categoria);
+                    databaseReference.child("Producto").child(p.getCodigo()).setValue(p);
+                    Toast.makeText(getActivity(), "categoria: "+categoria, Toast.LENGTH_SHORT).show();
+                    clean();
+
+                }else{
+                    Toast.makeText(getActivity(), "Por favor complete los datos", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clean();
+            }
+        });
+
+            /*
+            //String de como deberia ser el correo
+                String compruebaCorreo = "(?:[^<>()\\[\\].,;:\\s@\"]+(?:\\.[^<>()\\[\\].,;:\\s@\"]+)*|\"[^\\n\"]+\")@(?:[^<>()\\[\\].,;:\\s@\"]+\\.)+[^<>()\\[\\]\\.,;:\\s@\"]{2,63}";
+                //Comprueba si los campos estan vacios
+                if(!correo.isEmpty() && !contraseña.isEmpty()){
+                    //Comprueba de que sea de la forma del correo
+                    if (!correo.matches(compruebaCorreo))
+                    {
+                        Toast.makeText(Login.this, "Por favor, introduce bien su email", Toast.LENGTH_LONG).show();
+                    }else{
+                        loginUser();
+                    }
+
+                }else{
+                    Toast.makeText(Login.this, "complete los campos", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+            */
+
+
+
+
         return view; /*inflater.inflate(R.layout.fragment_create, container, false);*/
+    }
 
+    //Obtiene el texto de los rabioButton
+    private String chekoutRB(){
+        String textoRButton = "";
+       if (rbCat1.isChecked()){
+           textoRButton = rbCat1.getText().toString();
+           return textoRButton;
+       }else if (rbCat2.isChecked()){
+           textoRButton = rbCat2.getText().toString();
+           return textoRButton;
+       }else if(rbCat3.isChecked()){
+           textoRButton = rbCat3.getText().toString();
+           return textoRButton;
+       }else if (rbCat4.isChecked()){
+           textoRButton = rbCat4.getText().toString();
+           return textoRButton;
+       }else {
+           return "";
+       }
+    }
 
-        //
+    //Limpia el fragment
+    private void clean(){
+        etPrecio.setText("");
+        etNombre.setText("");
+        rbCat1.setChecked(false);
+        rbCat2.setChecked(false);
+        rbCat3.setChecked(false);
+        rbCat4.setChecked(false);
+    }
+
+    private String cod(){
+
+        return "";
+    }
+
+    private void inicializarFirebase(){
+        FirebaseApp.initializeApp(getActivity());
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
     }
 }

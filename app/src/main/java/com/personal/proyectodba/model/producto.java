@@ -2,7 +2,7 @@ package com.personal.proyectodba.model;
 
 public class producto {
 
-    private int codigo;
+    private String codigo;
     private String nombre;
     private String categoria;
     private String precio;
@@ -10,11 +10,11 @@ public class producto {
     public producto() {
     }
 
-    public int getCodigo() {
+    public String getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(int codigo) {
+    public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
 
