@@ -40,8 +40,8 @@
 
 
     <CheckBox
+        android:id="@+id/checkD"
         android:layout_width="93dp"
         android:layout_height="141dp"
-        android:layout_alignParentLeft="true"
         android:layout_marginLeft="276dp"/>
 </RelativeLayout>

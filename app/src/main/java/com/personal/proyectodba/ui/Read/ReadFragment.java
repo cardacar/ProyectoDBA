@@ -11,6 +11,7 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -39,6 +40,7 @@ public class ReadFragment extends Fragment {
 
 
     private RecyclerView myReadRecyclerView;
+    CheckBox check;
     private readAdapter rAdapter;
     private ArrayList<producto> lProducto = new ArrayList<>();
 
@@ -98,6 +100,9 @@ public class ReadFragment extends Fragment {
         myReadRecyclerView = (RecyclerView)readView.findViewById(R.id.recyclerRead);
         myReadRecyclerView.setLayoutManager(new LinearLayoutManager(container.getContext()));
         getProductoFromFirebase();
+
+        check = (CheckBox)readView.findViewById(R.id.checkD);
+        
 
 
 
