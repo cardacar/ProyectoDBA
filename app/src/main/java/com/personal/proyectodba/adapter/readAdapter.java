@@ -12,10 +12,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class readAdapter extends RecyclerView.Adapter<readAdapter.ViewHolder> {
+public class readAdapter
+        extends RecyclerView.Adapter<readAdapter.ViewHolder>
+        implements View.OnClickListener{
 
     private int resource;
     private ArrayList<producto> productList;
+    private View.OnClickListener listener;
 
     public readAdapter(ArrayList<producto> productList,int resource){
         this.productList = productList;
@@ -27,7 +30,10 @@ public class readAdapter extends RecyclerView.Adapter<readAdapter.ViewHolder> {
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //Primero obtenemos la vista xml que se creo para el producto
         View view = LayoutInflater.from(parent.getContext()).inflate(resource,parent,false);
+
+        view.setOnClickListener(this);
         return new ViewHolder(view);
+
     }
 
     @Override
@@ -42,6 +48,19 @@ public class readAdapter extends RecyclerView.Adapter<readAdapter.ViewHolder> {
     @Override
     public int getItemCount() {
         return productList.size();
+    }
+
+    public void setOnClickListener(View.OnClickListener listener){
+        this.listener = listener;
+
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (listener != null){
+            listener.onClick(view);
+        }
+
     }
 
 

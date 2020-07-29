@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.FirebaseApp;
@@ -28,6 +31,7 @@ import com.personal.proyectodba.model.producto;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.personal.proyectodba.R;
+import com.personal.proyectodba.ui.Delete.DeleteFragment;
 
 import java.util.ArrayList;
 
@@ -36,11 +40,10 @@ import java.util.ArrayList;
  * Use the {@link ReadFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ReadFragment extends Fragment {
+public class ReadFragment extends Fragment{
 
 
     private RecyclerView myReadRecyclerView;
-    CheckBox check;
     private readAdapter rAdapter;
     private ArrayList<producto> lProducto = new ArrayList<>();
 
@@ -94,15 +97,12 @@ public class ReadFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         //Inflo mi vista
-        View readView = inflater.inflate(R.layout.fragment_read, container, false);
+        final View readView = inflater.inflate(R.layout.fragment_read, container, false);
         //Obtengo el id del recyclerview
         inicializarFirebase();
         myReadRecyclerView = (RecyclerView)readView.findViewById(R.id.recyclerRead);
         myReadRecyclerView.setLayoutManager(new LinearLayoutManager(container.getContext()));
         getProductoFromFirebase();
-
-        check = (CheckBox)readView.findViewById(R.id.checkD);
-        
 
 
 
@@ -112,7 +112,14 @@ public class ReadFragment extends Fragment {
     }
 
     private void getProductoFromFirebase(){
-        productoRef.child("Producto").addValueEventListener(new ValueEventListener() {
+        //
+        /*productoRef.child("Producto").child("Categoria 1").-> con esto busco por el nodo categoria 1
+        * del nodo productos, mas especificamente por el hijo de producto puede servir para separarlo por
+        * categorias y asi se puede implementar multiples botones que lo manden a un activity de categorias
+        * pero ocupa mas tiempo del necesario*/
+
+        productoRef.child("Producto").
+        addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()){
@@ -126,6 +133,24 @@ public class ReadFragment extends Fragment {
                     }
                     rAdapter = new readAdapter(lProducto,R.layout.vistaproducto);
                     myReadRecyclerView.setAdapter(rAdapter);
+
+                    rAdapter.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            //String eliminar = lProducto.get(myReadRecyclerView.getChildAdapterPosition(view)).getCodigo().toString();
+                            String nn = lProducto.get(myReadRecyclerView.getChildAdapterPosition(view)).getNombre().toString();
+                            Toast.makeText(getActivity(), "nombre: "+nn, Toast.LENGTH_SHORT).show();
+                            Fragment fragment = new DeleteFragment();
+                            getActivity().getSupportFragmentManager().beginTransaction()
+                                    .replace(R.id.readFragment,fragment)
+                                    .addToBackStack(null)
+                                    .commit();
+                            //productoRef.child("Producto").child(eliminar).removeValue();
+
+                        }
+                    });
+                }else{
+                    Toast.makeText(getActivity(), "No hay datos en la bd", Toast.LENGTH_SHORT).show();
                 }
             }
 

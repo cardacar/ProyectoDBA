@@ -101,9 +101,6 @@ public class CreateFragment extends Fragment {
         //Id de los botones
         btnAcept = (Button)view.findViewById(R.id.btnAcept);
         btnCancel = (Button)view.findViewById(R.id.btnCancel);
-        //mAuth = FirebaseAuth.getInstance();
-        //currentUserID = mAuth.getCurrentUser().getUid();
-        //databaseReference = firebaseDatabase.getReference().child("Producto").child(currentUserID);
         inicializarFirebase();
 
 
@@ -126,6 +123,8 @@ public class CreateFragment extends Fragment {
                     p.setNombre(nombre);
                     p.setPrecio(price);
                     p.setCategoria(categoria);
+                    /*databaseReference.child("Producto").child(p.getCategoria()).child(p.getCodigo()).setValue(p);
+                    * Con lo de arriba puedo ingresar el producto a firebase dependiendo de la categoria ingresada*/
                     databaseReference.child("Producto").child(p.getCodigo()).setValue(p);
 
                     Toast.makeText(getActivity(), "Se ingresaron los datos a la base de datos ", Toast.LENGTH_SHORT).show();

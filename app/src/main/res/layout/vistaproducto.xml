@@ -37,11 +37,4 @@
             android:text="Categoria" />
 
     </LinearLayout>
-
-
-    <CheckBox
-        android:id="@+id/checkD"
-        android:layout_width="93dp"
-        android:layout_height="141dp"
-        android:layout_marginLeft="276dp"/>
 </RelativeLayout>
