@@ -2,12 +2,23 @@ package com.personal.proyectodba.ui.Delete;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.personal.proyectodba.R;
 
 /**
@@ -17,10 +28,21 @@ import com.personal.proyectodba.R;
  */
 public class DeleteFragment extends Fragment {
 
+    TextView tvdeleteCodigo,tvdeleteNombre,tvDeleteCategoria,tvDeletePrecio;
+    EditText findId;
+    Button delete, deleteFind;
+
+
+
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference,productoRef;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -61,6 +83,97 @@ public class DeleteFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_delete, container, false);
+        View view = inflater.inflate(R.layout.fragment_delete, container, false);
+
+        findId = (EditText)view.findViewById(R.id.findId);
+        tvdeleteCodigo=(TextView)view.findViewById(R.id.tvDeleteCodigo);
+        tvdeleteNombre=(TextView)view.findViewById(R.id.tvDeleteNombre);
+        tvDeleteCategoria=(TextView)view.findViewById(R.id.tvDeleteCategoria);
+        tvDeletePrecio=(TextView)view.findViewById(R.id.tvDeletePrecio);
+        deleteFind = (Button)view.findViewById(R.id.btnFindElement);
+        delete = (Button)view.findViewById(R.id.btnDelete);
+
+        inicializarFirebase();
+
+        deleteFind.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String nombreIngresado;
+                nombreIngresado = findId.getText().toString();
+                databaseReference.child("Producto").child(nombreIngresado).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        if(snapshot.exists()){
+                            String codigo,nombre,categoria,precio;
+                            codigo = snapshot.child("codigo").getValue().toString();
+                            tvdeleteCodigo.setText(codigo);
+                            nombre = snapshot.child("nombre").getValue().toString();
+                            tvdeleteNombre.setText(nombre);
+                            categoria = snapshot.child("categoria").getValue().toString();
+                            tvDeleteCategoria.setText(categoria);
+                            precio = snapshot.child("precio").getValue().toString();
+                            tvDeletePrecio.setText(precio);
+
+                        }else{
+                            Toast.makeText(getActivity(), "El dato no existe", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+            }
+        });
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final String nombreIngresado;
+                nombreIngresado = findId.getText().toString();
+                //Modificar ya que entra al if y al else
+                databaseReference.child("Producto").child(nombreIngresado).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.exists()){
+                            databaseReference.child("Producto").child(nombreIngresado).removeValue();
+                            Toast.makeText(getActivity(), "Se elimino el dato", Toast.LENGTH_SHORT).show();
+                            tvdeleteCodigo.setText("");
+                            tvDeleteCategoria.setText("");
+                            tvdeleteNombre.setText("");
+                            tvDeletePrecio.setText("");
+                        }else{
+                            Toast.makeText(getActivity(), "El dato no existe", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+
+
+
+            }
+        });
+
+
+
+        return view;
+    }
+
+    private void inicializarFirebase(){
+        FirebaseApp.initializeApp(getActivity());
+        FirebaseApp.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
+
     }
 }

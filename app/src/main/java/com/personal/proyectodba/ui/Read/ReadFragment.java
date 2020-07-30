@@ -134,21 +134,9 @@ public class ReadFragment extends Fragment{
                     rAdapter = new readAdapter(lProducto,R.layout.vistaproducto);
                     myReadRecyclerView.setAdapter(rAdapter);
 
-                    rAdapter.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            //String eliminar = lProducto.get(myReadRecyclerView.getChildAdapterPosition(view)).getCodigo().toString();
-                            String nn = lProducto.get(myReadRecyclerView.getChildAdapterPosition(view)).getNombre().toString();
-                            Toast.makeText(getActivity(), "nombre: "+nn, Toast.LENGTH_SHORT).show();
-                            Fragment fragment = new DeleteFragment();
-                            getActivity().getSupportFragmentManager().beginTransaction()
-                                    .replace(R.id.readFragment,fragment)
-                                    .addToBackStack(null)
-                                    .commit();
-                            //productoRef.child("Producto").child(eliminar).removeValue();
+                    //String eliminar = lProducto.get(myReadRecyclerView.getChildAdapterPosition(view)).getCodigo().toString();
+                    //String nn = lProducto.get(myReadRecyclerView.getChildAdapterPosition(view)).getNombre().toString();
 
-                        }
-                    });
                 }else{
                     Toast.makeText(getActivity(), "No hay datos en la bd", Toast.LENGTH_SHORT).show();
                 }
