@@ -52,12 +52,12 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textColor="#000"
-            android:text="Codigo:  "/>
+            android:text="Nombre:  "/>
         <TextView
             android:id="@+id/tvDeleteNombre"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:hint="codigo"/>
+            android:hint="Nombre"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -68,12 +68,12 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textColor="#000"
-            android:text="Codigo:  "/>
+            android:text="Categoria:  "/>
         <TextView
             android:id="@+id/tvDeleteCategoria"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:hint="codigo"/>
+            android:hint="Categoria"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -84,12 +84,12 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textColor="#000"
-            android:text="Codigo:  "/>
+            android:text="Precio:  "/>
         <TextView
             android:id="@+id/tvDeletePrecio"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:hint="codigo"/>
+            android:hint="Precio"/>
     </LinearLayout>
 
     <LinearLayout

@@ -2,6 +2,7 @@ package com.personal.proyectodba.ui.Create;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -16,8 +17,11 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.personal.proyectodba.MainActivity;
 import com.personal.proyectodba.R;
 import com.personal.proyectodba.model.producto;
@@ -31,8 +35,9 @@ import java.util.UUID;
  */
 public class CreateFragment extends Fragment {
 
+    private boolean cond = false;
 
-    private EditText etNombre,etPrecio;
+    private EditText etNombre,etPrecio,etCodigo;
     private RadioButton rbCat1,rbCat2,rbCat3,rbCat4;
     private Button btnCancel,btnAcept;
 
@@ -91,6 +96,7 @@ public class CreateFragment extends Fragment {
         //Busco los id de los editText
         etNombre = (EditText)view.findViewById(R.id.ETnombre);
         etPrecio = (EditText)view.findViewById(R.id.ETprecio);
+        etCodigo = (EditText)view.findViewById(R.id.ETCodigo);
 
         //Id de los radioButton
         rbCat1 = (RadioButton)view.findViewById(R.id.rbcat1);
@@ -109,7 +115,7 @@ public class CreateFragment extends Fragment {
         btnAcept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), "hola mundo", Toast.LENGTH_SHORT).show();
+                final String codigo = etCodigo.getText().toString();
                 String nombre = etNombre.getText().toString();
                 String categoria = chekoutRB();
                 String price = etPrecio.getText().toString();
@@ -118,18 +124,34 @@ public class CreateFragment extends Fragment {
 
                 if (!nombre.isEmpty() && !price.isEmpty() &&!categoria.isEmpty()){
 
-                    producto p = new producto();
-                    p.setCodigo(UUID.randomUUID().toString());
+                    final producto p = new producto();
+                    p.setCodigo(codigo);
                     p.setNombre(nombre);
                     p.setPrecio(price);
                     p.setCategoria(categoria);
                     /*databaseReference.child("Producto").child(p.getCategoria()).child(p.getCodigo()).setValue(p);
                     * Con lo de arriba puedo ingresar el producto a firebase dependiendo de la categoria ingresada*/
-                    databaseReference.child("Producto").child(p.getCodigo()).setValue(p);
+                    //databaseReference.child("Producto").child(p.getCodigo()).setValue(p);
 
-                    Toast.makeText(getActivity(), "Se ingresaron los datos a la base de datos ", Toast.LENGTH_SHORT).show();
-                    clean();
 
+
+                   databaseReference.child("Producto").child(codigo).addListenerForSingleValueEvent(new ValueEventListener() {
+                       @Override
+                       public void onDataChange(@NonNull DataSnapshot snapshot) {
+                           if (snapshot.exists()){
+                               Toast.makeText(getActivity(), "El codigo ya existe ", Toast.LENGTH_SHORT).show();
+                           }else{
+                               databaseReference.child("Producto").child(p.getCodigo()).setValue(p);
+                               Toast.makeText(getActivity(), "El dato fue ingresado correctamente", Toast.LENGTH_SHORT).show();
+                               clean();
+                           }
+                       }
+
+                       @Override
+                       public void onCancelled(@NonNull DatabaseError error) {
+
+                       }
+                   });
                 }else{
                     Toast.makeText(getActivity(), "Por favor complete los datos", Toast.LENGTH_SHORT).show();
                 }
@@ -169,6 +191,7 @@ public class CreateFragment extends Fragment {
 
     //Limpia el fragment
     private void clean(){
+        etCodigo.setText("");
         etPrecio.setText("");
         etNombre.setText("");
         rbCat1.setChecked(false);

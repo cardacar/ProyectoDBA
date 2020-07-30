@@ -100,7 +100,7 @@ public class DeleteFragment extends Fragment {
             public void onClick(View view) {
                 String nombreIngresado;
                 nombreIngresado = findId.getText().toString();
-                databaseReference.child("Producto").child(nombreIngresado).addValueEventListener(new ValueEventListener() {
+                databaseReference.child("Producto").child(nombreIngresado).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
@@ -136,7 +136,7 @@ public class DeleteFragment extends Fragment {
                 final String nombreIngresado;
                 nombreIngresado = findId.getText().toString();
                 //Modificar ya que entra al if y al else
-                databaseReference.child("Producto").child(nombreIngresado).addValueEventListener(new ValueEventListener() {
+                databaseReference.child("Producto").child(nombreIngresado).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if(snapshot.exists()){
@@ -157,9 +157,6 @@ public class DeleteFragment extends Fragment {
 
                     }
                 });
-
-
-
 
             }
         });
