@@ -7,15 +7,6 @@
 
 
     <fragment
-        android:id="@+id/listFragment"
-        android:name="com.personal.proyectodba.ui.List.ListFragment"
-        android:label="fragment_list"
-        tools:layout="@layout/fragment_list" >
-        <action
-            android:id="@+id/action_listFragment_to_deleteFragment"
-            app:destination="@id/deleteFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/createFragment"
         android:name="com.personal.proyectodba.ui.Create.CreateFragment"
         android:label="fragment_create"

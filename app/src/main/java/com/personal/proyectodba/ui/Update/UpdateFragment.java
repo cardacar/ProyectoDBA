@@ -131,40 +131,43 @@ public class UpdateFragment extends Fragment {
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final String codigoIngresado;
+                final String codigoIngresado,nombre,precio,categoria;
                 codigoIngresado = etUpdateFind.getText().toString();
 
-                databaseReference.child("Producto").child(codigoIngresado).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.exists()){
-                            String nombre,precio,categoria;
-                            nombre = etUpdateName.getText().toString();
-                            precio = etUpdatePrice.getText().toString();
-                            categoria = etUpdateCategory.getText().toString();
-                            producto p = new producto();
-                            p.setCodigo(codigoIngresado);
-                            p.setNombre(nombre);
-                            p.setCategoria(categoria);
-                            p.setPrecio(precio);
-                            databaseReference.child("Producto").child(p.getCodigo()).setValue(p);
-                        }else{
-                            Toast.makeText(getActivity(), "El dato no existe", Toast.LENGTH_SHORT).show();
+                nombre = etUpdateName.getText().toString();
+                precio = etUpdatePrice.getText().toString();
+                categoria = etUpdateCategory.getText().toString();
+
+                if (!nombre.isEmpty() && !precio.isEmpty() && ! categoria.isEmpty()){
+                    final producto pro = new producto();
+                    pro.setCodigo(codigoIngresado);
+                    pro.setNombre(nombre);
+                    pro.setCategoria(categoria);
+                    pro.setPrecio(precio);
+                    databaseReference.child("Producto").child(codigoIngresado).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.exists()){
+                                databaseReference.child("Producto").child(pro.getCodigo()).setValue(pro);
+                            }else{
+                                Toast.makeText(getActivity(), "El dato no existe", Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
 
-                    }
-                });
+                        }
+                    });
+                }else{
+                    Toast.makeText(getActivity(), "Por favor complete los datos", Toast.LENGTH_SHORT).show();
+                }
 
                 clean();
+                Toast.makeText(getActivity(), "El dato fue actualizado correctamente", Toast.LENGTH_SHORT).show();
 
             }
         });
-
-
 
         return view;
     }
