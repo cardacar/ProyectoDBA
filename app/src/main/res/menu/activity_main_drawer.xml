@@ -7,11 +7,11 @@
         <item
             android:id="@+id/createFragment"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Crear" />
+            android:title="Agregar nuevo elemento" />
         <item
             android:id="@+id/readFragment"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Leer" />
+            android:title="Mostras los elementos" />
         <item
             android:id="@+id/updateFragment"
             android:icon="@drawable/ic_menu_slideshow"
@@ -20,9 +20,5 @@
             android:id="@+id/deleteFragment"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Eliminar" />
-        <item
-            android:id="@+id/listFragment"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Listar" />
     </group>
 </menu>

@@ -9,7 +9,7 @@
     <fragment
         android:id="@+id/createFragment"
         android:name="com.personal.proyectodba.ui.Create.CreateFragment"
-        android:label="fragment_create"
+        android:label="Agregar"
         tools:layout="@layout/fragment_create" >
         <action
             android:id="@+id/action_createFragment_self"
@@ -19,7 +19,7 @@
     <fragment
         android:id="@+id/readFragment"
         android:name="com.personal.proyectodba.ui.Read.ReadFragment"
-        android:label="fragment_read"
+        android:label="Elementos"
         tools:layout="@layout/fragment_read" >
         <action
             android:id="@+id/action_readFragment_to_createFragment"
@@ -28,7 +28,7 @@
     <fragment
         android:id="@+id/updateFragment"
         android:name="com.personal.proyectodba.ui.Update.UpdateFragment"
-        android:label="fragment_update"
+        android:label="Actualizar"
         tools:layout="@layout/fragment_update" >
         <action
             android:id="@+id/action_updateFragment_to_readFragment"
@@ -37,7 +37,7 @@
     <fragment
         android:id="@+id/deleteFragment"
         android:name="com.personal.proyectodba.ui.Delete.DeleteFragment"
-        android:label="fragment_delete"
+        android:label="Eliminar"
         tools:layout="@layout/fragment_delete" >
         <action
             android:id="@+id/action_deleteFragment_to_updateFragment"
