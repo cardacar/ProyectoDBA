@@ -2,13 +2,26 @@ package com.personal.proyectodba.ui.Update;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.personal.proyectodba.R;
+import com.personal.proyectodba.model.producto;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +29,13 @@ import com.personal.proyectodba.R;
  * create an instance of this fragment.
  */
 public class UpdateFragment extends Fragment {
+
+    EditText etUpdateFind,etUpdateName,etUpdatePrice,etUpdateCategory;
+    TextView tvUpdateCodigo;
+    Button update, updateFind;
+
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,6 +81,107 @@ public class UpdateFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_update, container, false);
+        View view = inflater.inflate(R.layout.fragment_update, container, false);
+
+        etUpdateFind = (EditText)view.findViewById(R.id.etUpdateFind);
+        etUpdateName = (EditText)view.findViewById(R.id.etUpdateName);
+        etUpdatePrice = (EditText)view.findViewById(R.id.etUpdatePrice);
+        etUpdateCategory = (EditText)view.findViewById(R.id.etUpdateCategory);
+
+        tvUpdateCodigo = (TextView)view.findViewById(R.id.tvUpdateCodigo);
+
+        update = (Button)view.findViewById(R.id.btnUpdate);
+        updateFind = (Button)view.findViewById(R.id.btnUpdateFind);
+
+        inicializarFirebase();
+
+        updateFind.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String codigoIngresado;
+                codigoIngresado = etUpdateFind.getText().toString();
+                databaseReference.child("Producto").child(codigoIngresado).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.exists()){
+                            String codigo,nombre,categoria,precio;
+                            codigo = snapshot.child("codigo").getValue().toString();
+                            tvUpdateCodigo.setText(codigo);
+                            nombre = snapshot.child("nombre").getValue().toString();
+                            etUpdateName.setText(nombre);
+                            categoria = snapshot.child("categoria").getValue().toString();
+                            etUpdateCategory.setText(categoria);
+                            precio = snapshot.child("precio").getValue().toString();
+                            etUpdatePrice.setText(precio);
+
+                        }else{
+                            Toast.makeText(getActivity(), "El dato no existe", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+        });
+
+
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final String codigoIngresado;
+                codigoIngresado = etUpdateFind.getText().toString();
+
+                databaseReference.child("Producto").child(codigoIngresado).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()){
+                            String nombre,precio,categoria;
+                            nombre = etUpdateName.getText().toString();
+                            precio = etUpdatePrice.getText().toString();
+                            categoria = etUpdateCategory.getText().toString();
+                            producto p = new producto();
+                            p.setCodigo(codigoIngresado);
+                            p.setNombre(nombre);
+                            p.setCategoria(categoria);
+                            p.setPrecio(precio);
+                            databaseReference.child("Producto").child(p.getCodigo()).setValue(p);
+                        }else{
+                            Toast.makeText(getActivity(), "El dato no existe", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+                clean();
+
+            }
+        });
+
+
+
+        return view;
+    }
+
+    private void clean(){
+        etUpdateName.setText(" ");
+        etUpdateCategory.setText(" ");
+        etUpdatePrice.setText(" ");
+        etUpdateFind.setText(" ");
+        tvUpdateCodigo.setText(" ");
+    }
+
+    private void inicializarFirebase(){
+        FirebaseApp.initializeApp(getActivity());
+        FirebaseApp.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
+
     }
 }

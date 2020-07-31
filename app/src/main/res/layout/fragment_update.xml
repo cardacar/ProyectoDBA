@@ -18,100 +18,86 @@
             android:textSize="18dp"
             android:textColor="#000"
             android:gravity="center"
-            android:text="Por favor ingrese el nombre del dato a eliminar"/>
+            android:text="Por favor ingrese el codigo que desea actualizar"/>
         <EditText
-            android:id="@+id/findId"
-            android:hint="nombre"
+            android:id="@+id/etUpdateFind"
+            android:hint="Codigo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textColor="#000"
-            android:text="Codigo:  "/>
-        <TextView
-            android:id="@+id/tvDeleteCodigo"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:hint="codigo"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="220dp"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textColor="#000"
-            android:text="Nombre:  "/>
-        <TextView
-            android:id="@+id/tvDeleteNombre"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:hint="Nombre"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="240dp"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textColor="#000"
-            android:text="Categoria:  "/>
-        <TextView
-            android:id="@+id/tvDeleteCategoria"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:hint="Categoria"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="260dp"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textColor="#000"
-            android:text="Precio:  "/>
-        <TextView
-            android:id="@+id/tvDeletePrecio"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:hint="Precio"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="400dp"
+        android:layout_marginTop="210dp"
         android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginLeft="25dp">
+
+        <TextView
+            android:layout_width="92dp"
+            android:layout_height="wrap_content"
+            android:text="Codigo: "
+            android:textColor="#000" />
+
+        <TextView
+            android:id="@+id/tvUpdateCodigo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Codigo"
+            android:textColor="#000" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="230dp"
+        android:orientation="vertical"
+        android:layout_marginLeft="25dp">
+
+        <EditText
+            android:id="@+id/etUpdateName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nombre"
+            android:textAlignment="center"/>
+
+        <EditText
+            android:id="@+id/etUpdatePrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Precio"
+            android:textAlignment="center"/>
+
+        <EditText
+            android:id="@+id/etUpdateCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Categoria"
+            android:textAlignment="center"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="500dp"
         android:gravity="center">
 
         <Button
-            android:id="@+id/btnDelete"
-            android:text="Eliminar"
-            android:layout_marginRight="10dp"
+            android:id="@+id/btnUpdate"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:text="Actualizar"
+            />
 
         <Button
-            android:id="@+id/btnFindElement"
-            android:text="Buscar"
-            android:layout_marginLeft="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:id="@+id/btnUpdateFind"
+            android:layout_width="123dp"
+            android:layout_height="match_parent"
+            android:text="Buscar" />
     </LinearLayout>
+
+
 
 </FrameLayout>
