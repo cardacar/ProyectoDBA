@@ -7,32 +7,32 @@
 
     <LinearLayout
         android:id="@+id/linearLay"
-        android:layout_width="249dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="25dp"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/tvCodigo"
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Codigo" />
 
         <TextView
             android:id="@+id/tvNombre"
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Nombre" />
 
         <TextView
             android:id="@+id/tvprecio"
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Precio" />
 
         <TextView
             android:id="@+id/tvCategoria"
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Categoria" />
 
